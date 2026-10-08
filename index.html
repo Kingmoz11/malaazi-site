@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malaazi | Luxury Coastal Stays</title>
+  <meta name="description" content="Luxury stays across the Kenyan coast." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-dark: #031d1b;
+      --bg-dark-2: #072b29;
+      --gold: #d6b06f;
+      --gold-soft: #e9d6aa;
+      --cream: #f3efe8;
+      --text-dark: #152f2f;
+      --text-soft: rgba(255,255,255,.7);
+      --panel: rgba(255,255,255,.08);
+      --shadow: rgba(0,0,0,.2);
+      --button: #e7d3a2;
+      --muted: #7d7c78;
+      --card-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body{
+      margin:0;
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    .container{
+      width:min(1280px, calc(100% - 48px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      background: linear-gradient(180deg, rgba(1,23,20,.82), rgba(1,23,20,.9));
+      color: white;
+      position: sticky;
+      top:0;
+      z-index:50;
+      border-bottom: 1px solid rgba(214,176,111,.3);
+    }
+
+    .topbar-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      min-height: 98px;
+      gap:25px;
+    }
+
+    .brand-wrap{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 190px;
+    }
+
+    .brand-mark{
+      width: 42px;
+      height: 42px;
+      color: var(--gold);
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      position:relative;
+      font-weight:700;
+      font-size: 26px;
+      font-family:'Cormorant Garamond';
+      text-shadow: 0 0 18px rgba(214,176,111,.55);
+    }
+
+    .brand-mark::before{
+      content:"✦";
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      filter: drop-shadow(0 0 8px rgba(214,176,111,.5));
+    }
+
+    .brand{
+      font-family:'Cormorant Garamond', serif;
+      font-weight:700;
+      letter-spacing: 0.02em;
+      font-size: clamp(2rem, 2vw, 3.3rem);
+      color: var(--gold-soft);
+      line-height:.85;
+      transform: translateY(4px);
+    }
+
+    .brand-sub{
+      margin-top:2px;
+      font-size: .7rem;
+      font-family:'Cormorant Garamond', serif;
+      color: rgba(255,255,255,.78);
+      font-style: italic;
+      letter-spacing:.02em;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap:26px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    .nav a{
+      position:relative;
+      color: rgba(255,255,255,.9);
+      font-size: .76rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      padding: 12px 0;
+      transition:.2s ease;
+      white-space:nowrap;
+    }
+
+    .nav a::after{
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:-2px;
+      width:100%;
+      height:2px;
+      background: var(--gold);
+      transform:scaleX(0);
+      transform-origin:left;
+      transition:transform .2s ease;
+    }
+
+    .nav a:hover::after,
+    .nav a.active::after{
+      transform:scaleX(1);
+    }
+
+    .nav a.active{
+      color: #fff;
+    }
+
+    .header-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 0.85rem 1.5rem;
+      border-radius: 10px;
+      border: 1px solid rgba(214,176,111,.9);
+      background: rgba(214,176,111,.12);
+      color: var(--gold-soft);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .68rem;
+      font-weight:600;
+      white-space:nowrap;
+      transition:.2s ease;
+    }
+
+    .header-btn:hover{
+      background: var(--gold);
+      color:#0e1d1b;
+    }
+
+    .header-btn .icon{
+      margin-right: 8px;
+      font-size:1rem;
+      display:inline-block;
+      transform: translateY(-1px);
+    }
+
+    .hero{
+      position:relative;
+      min-height: 720px;
+      overflow:hidden;
+      background:
+        linear-gradient(90deg, rgba(4,15,15,.68) 0%, rgba(4,15,15,.34) 28%, rgba(4,15,15,.14) 46%, rgba(4,15,15,.26) 100%),
+        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+    }
+
+    .hero .container{
+      position:relative;
+      z-index:1;
+      min-height: 720px;
+      display:flex;
+      align-items:flex-end;
+      padding-bottom: 40px;
+    }
+
+    .hero-copy{
+      max-width: 720px;
+      padding-top: 120px;
+      color: #f5f0ea;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      color: var(--gold-soft);
+      letter-spacing:.2em;
+      text-transform: uppercase;
+      font-size: .78rem;
+      font-weight:700;
+      margin-bottom: 12px;
+    }
+
+    h1{
+      margin: 0;
+      font-family:'Cormorant Garamond', serif;
+      font-weight:600;
+      font-size: clamp(4rem, 7vw, 7.8rem);
+      line-height: .82;
+      letter-spacing: -.02em;
+      color: rgba(246,239,232,.96);
+    }
+
+    .subtext{
+      margin-top: 24px;
+      font-family:'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 2.1vw, 2.8rem);
+      line-height:1.15;
+      color: rgba(245,238,231,.88);
+      max-width: 620px;
+      font-weight:500;
+    }
+
+    .hero-button{
+      margin-top: 32px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 12px;
+      border: 1px solid rgba(214,176,111,.8);
+      background: rgba(255,255,255,.04);
+      color: #f4ece2;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      padding: 1rem 1.7rem;
+      border-radius: 25px;
+      font-size: .7rem;
+      font-weight:600;
+      transition:.2s ease;
+      backdrop-filter: blur(2px);
+    }
+
+    .hero-button:hover{
+      background: rgba(214,176,111,.12);
+      transform: translateY(-2px);
+    }
+
+    .play{
+      width: 18px;
+      height: 18px;
+      border: 1px solid rgba(214,176,111,.9);
+      border-radius: 50%;
+      display:grid;
+      place-items:center;
+      font-size: .62rem;
+      padding-left: 2px;
+      color: var(--gold-soft);
+    }
+
+    .search-box{
+      position: relative;
+      transform: translateY(42px);
+      width: min(1040px, calc(100% - 18px));
+      margin: 0 auto;
+      background: rgba(255,255,255,.95);
+      border-radius: 18px;
+      box-shadow: 0 18px 38px rgba(0,0,0,.12);
+      display:grid;
+      grid-template-columns: 1.2fr 1.2fr 1fr 1fr;
+      align-items:center;
+      overflow:hidden;
+    }
+
+    .search-item{
+      position:relative;
+      min-height: 82px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding: 18px 20px;
+      border-right: 1px solid rgba(30,47,42,.1);
+      color: var(--text-dark);
+    }
+
+    .search-item:last-child{
+      border-right:none;
+    }
+
+    .search-item .icon{
+      width: 22px;
+      height: 22px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      color: var(--gold);
+      font-size: 1.1rem;
+      opacity:.9;
+    }
+
+    .search-label{
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: rgba(0,0,0,.55);
+      font-weight:700;
+    }
+
+    .search-value{
+      font-size: .96rem;
+      margin-top: 2px;
+      color: rgba(0,0,0,.8);
+      font-weight:500;
+    }
+
+    .search-submit{
+      background: linear-gradient(180deg, #012f2d, #073d3a);
+      border: none;
+      color: #f6f3ef;
+      height:100%;
+      min-height: 82px;
+      cursor:pointer;
+      font-size: .75rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-weight:700;
+      transition:.2s ease;
+    }
+
+    .search-submit:hover{
+      filter: brightness(1.08);
+    }
+
+    .features{
+      background: var(--cream);
+      padding-top: 110px;
+      padding-bottom: 12px;
+    }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .feature-card{
+      background: rgba(255,255,255,.3);
+      border: 1px solid rgba(17,32,27,.1);
+      border-radius: 14px;
+      padding: 28px 22px 20px;
+      min-height: 150px;
+      text-align: center;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap: 14px;
+      color: var(--text-dark);
+    }
+
+    .feature-icon{
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display:grid;
+      place-items:center;
+      color: var(--gold);
+      font-size: 1.5rem;
+      border: 1px solid rgba(214,176,111,.7);
+      background: rgba(214,176,111,.06);
+    }
+
+    .feature-card h3{
+      margin:0;
+      font-family:'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight:600;
+      line-height:1;
+    }
+
+    .feature-card p{
+      margin:0;
+      font-size: .9rem;
+      line-height:1.6;
+      color: rgba(13,27,25,.74);
+      max-width: 220px;
+    }
+
+    .discover{
+      background: var(--cream);
+      padding-top: 80px;
+      padding-bottom: 70px;
+    }
+
+    .discover-head{
+      text-align:center;
+      margin-bottom: 30px;
+    }
+
+    .discover-head .label{
+      font-size: .72rem;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display:block;
+      margin-bottom: 16px;
+      font-weight:700;
+    }
+
+    .discover-head h2{
+      font-family:'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 3.3vw, 4.2rem);
+      margin: 0;
+      line-height: .94;
+      color: var(--text-dark);
+      font-weight:600;
+    }
+
+    .discover-head .underline{
+      width: 180px;
+      height: 2px;
+      display:block;
+      margin: 14px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .discover-grid{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 24px;
+      margin-top: 22px;
+    }
+
+    .story-card{
+      position:relative;
+      min-height: 260px;
+      border-radius: 16px;
+      overflow:hidden;
+      box-shadow: var(--card-shadow);
+      background: #ddd;
+    }
+
+    .story-card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(3,15,14,.14), rgba(3,15,14,.68));
+      z-index:1;
+    }
+
+    .story-card img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .story-body{
+      position:absolute;
+      inset:auto 0 0 0;
+      z-index:2;
+      padding: 20px 18px 18px;
+      color: #fff;
+    }
+
+    .story-title{
+      font-family:'Cormorant Garamond', serif;
+      font-size: clamp(1.9rem, 2vw, 2.5rem);
+      line-height:1;
+      margin:0;
+      font-weight:600;
+    }
+
+    .story-meta{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-top: 10px;
+      gap:12px;
+      color: rgba(255,255,255,.82);
+      font-size: .82rem;
+      letter-spacing: .02em;
+    }
+
+    .story-link{
+      font-size: .7rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      font-weight:700;
+    }
+
+    .featured{
+      background: var(--cream);
+      padding-top: 10px;
+      padding-bottom: 80px;
+    }
+
+    .featured-inner{
+      display:grid;
+      grid-template-columns: 1.08fr 1.42fr;
+      gap: 28px;
+      align-items:center;
+    }
+
+    .featured-copy{
+      padding-top: 10px;
+    }
+
+    .small-label{
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      color: var(--gold);
+      font-size: .72rem;
+      font-weight:700;
+      display:block;
+      margin-bottom: 18px;
+    }
+
+    .featured-copy h2{
+      margin: 0;
+      font-family:'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 4vw, 5.4rem);
+      line-height: .9;
+      font-weight:600;
+      color: var(--text-dark);
+    }
+
+    .featured-copy .rule{
+      width: 130px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), rgba(214,176,111,.3));
+      display:block;
+      margin:16px 0 20px;
+    }
+
+    .featured-copy p{
+      max-width: 500px;
+      font-family:'Cormorant Garamond', serif;
+      font-size: clamp(1.2rem, 1.7vw, 1.7rem);
+      line-height:1.45;
+      color: rgba(17,25,23,.75);
+      margin: 0 0 22px;
+    }
+
+    .read-more{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--text-dark);
+      font-weight:700;
+    }
+
+    .read-more .arrow{
+      width: 12px;
+      height: 12px;
+      border-top: 1.7px solid currentColor;
+      border-right:1.7px solid currentColor;
+      transform: rotate(45deg);
+      display:inline-block;
+    }
+
+    .featured-visual{
+      position:relative;
+      border-radius: 18px;
+      overflow:hidden;
+      min-height: 440px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .featured-visual img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .faq{
+      background: #f7f3ee;
+      padding: 30px 0 80px;
+      text-align:center;
+    }
+
+    .faq-mark{
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 12px;
+      color: var(--gold);
+      font-size: 2rem;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background: rgba(214,176,111,.06);
+      border:1px solid rgba(214,176,111,.4);
+    }
+
+    .faq h3{
+      margin:0;
+      font-family:'Cormorant Garamond', serif;
+      font-size: clamp(2.2rem, 4vw, 3.6rem);
+      line-height: 1.05;
+      font-weight:600;
+      color: var(--text-dark);
+      font-style: italic;
+    }
+
+    .faq .rule{
+      width: 200px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 16px auto 0;
+    }
+
+    @media (max-width: 1100px){
+      .nav{
+        gap:16px;
+      }
+
+      .search-box{
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+
+      .search-submit{
+        grid-column: 1 / -1;
+      }
+
+      .feature-grid{
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .discover-grid{
+        grid-template-columns: repeat(2, minmax(220px,1fr));
+      }
+    }
+
+    @media (max-width: 820px){
+      .topbar-inner{
+        flex-wrap:wrap;
+        padding: 16px 0;
+      }
+
+      .nav{
+        order:3;
+        width:100%;
+        justify-content:flex-start;
+        overflow-x:auto;
+        padding-bottom:6px;
+      }
+
+      .hero{
+        min-height: 620px;
+      }
+
+      .hero .container{
+        min-height: 620px;
+      }
+
+      .hero-copy{
+        padding-top: 80px;
+      }
+
+      .featured-inner{
+        grid-template-columns: 1fr;
+      }
+
+      .search-box{
+        width: calc(100% - 20px);
+        grid-template-columns: 1fr;
+      }
+
+      .search-item{
+        border-right:none;
+        border-bottom: 1px solid rgba(30,47,42,.1);
+      }
+
+      .search-item:last-child{
+        border-bottom:none;
+      }
+    }
+
+    @media (max-width: 600px){
+      .brand-wrap{
+        min-width:auto;
+      }
+
+      .brand{
+        font-size: 2.2rem;
+      }
+
+      .header-btn{
+        padding: .75rem 1rem;
+        letter-spacing: .1em;
+      }
+
+      .hero{
+        min-height: 560px;
+      }
+
+      .hero .container{
+        min-height: 560px;
+      }
+
+      .feature-grid{
+        grid-template-columns: 1fr;
+      }
+
+      .discover-grid{
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand-wrap">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <div class="brand">MALAAZI</div>
+          <div class="brand-sub">Because You Matter.</div>
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#home" class="active">Home</a>
+        <a href="#collection">Collection</a>
+        <a href="#signature">Signature</a>
+        <a href="#gatherings">Executive Gatherings</a>
+        <a href="#partner">Partner with Malaazi</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <a href="#booking" class="header-btn"><span class="icon">🗓</span> Book Now</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container">
+        <div class="hero-copy">
+          <div class="eyebrow">Luxury Coastal Escapes</div>
+          <h1>Kenya’s Coast.<br>Extraordinary Stays.</h1>
+          <div class="subtext">
+            Curated villas, boutique hotels and exceptional hospitality across the Kenyan Coast.
+          </div>
+          <a href="#discover" class="hero-button">
+            <span class="play">▶</span>
+            Discover Malaazi
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <form class="search-box" id="booking">
+        <div class="search-item">
+          <div class="icon">📍</div>
+          <div>
+            <div class="search-label">Destination</div>
+            <div class="search-value">Where are you going?</div>
+          </div>
+        </div>
+
+        <div class="search-item">
+          <div class="icon">📅</div>
+          <div>
+            <div class="search-label">Check In - Check Out</div>
+            <div class="search-value">Add dates</div>
+          </div>
+        </div>
+
+        <div class="search-item">
+          <div class="icon">👥</div>
+          <div>
+            <div class="search-label">Guests</div>
+            <div class="search-value">2 Guests, 1 Room</div>
+          </div>
+        </div>
+
+        <button type="submit" class="search-submit">Search Stays</button>
+      </form>
+    </div>
+
+    <section class="features">
+      <div class="container">
+        <div class="feature-grid">
+          <article class="feature-card">
+            <div class="feature-icon">✦</div>
+            <h3>Curated Collection</h3>
+            <p>Handpicked stays across the Kenyan Coast.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">✓</div>
+            <h3>Trusted Standards</h3>
+            <p>Every property meets our high standards of quality.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">◌</div>
+            <h3>Local Expertise</h3>
+            <p>Deep local knowledge and personalised recommendations.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">✧</div>
+            <h3>Thoughtful Hospitality</h3>
+            <p>We go beyond to ensure you feel truly cared for.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="discover" id="discover">
+      <div class="container">
+        <div class="discover-head">
+          <span class="label">Discover</span>
+          <h2>Beyond your stay.<br>The Coast Awaits.</h2>
+          <span class="underline"></span>
+        </div>
+
+        <div class="discover-grid">
+          <article class="story-card">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80" alt="Beach escapes" />
+            <div class="story-body">
+              <h3 class="story-title">Beach Escapes</h3>
+              <div class="story-meta">
+                <span>Sun, Sand, Serenity.</span>
+                <span class="story-link">→</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=1000&q=80" alt="Family getaways" />
+            <div class="story-body">
+              <h3 class="story-title">Family Getaways</h3>
+              <div class="story-meta">
+                <span>Memories made together.</span>
+                <span class="story-link">→</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1000&q=80" alt="Romantic retreats" />
+            <div class="story-body">
+              <h3 class="story-title">Romantic Retreats</h3>
+              <div class="story-meta">
+                <span>Moments just for two.</span>
+                <span class="story-link">→</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1000&q=80" alt="Executive retreats" />
+            <div class="story-body">
+              <h3 class="story-title">Executive Retreats</h3>
+              <div class="story-meta">
+                <span>Focus, connect, achieve.</span>
+                <span class="story-link">→</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1000&q=80" alt="Culture and heritage" />
+            <div class="story-body">
+              <h3 class="story-title">Culture & Heritage</h3>
+              <div class="story-meta">
+                <span>Discover the stories of our land.</span>
+                <span class="story-link">→</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1000&q=80" alt="Nature and marine life" />
+            <div class="story-body">
+              <h3 class="story-title">Nature & Marine Life</h3>
+              <div class="story-meta">
+                <span>Explore a world beneath the waves.</span>
+                <span class="story-link">→</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=1000&q=80" alt="Food and coastal dining" />
+            <div class="story-body">
+              <h3 class="story-title">Food & Coastal Dining</h3>
+              <div class="story-meta">
+                <span>Savor the flavors of the coast.</span>
+                <span class="story-link">→</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1000&q=80" alt="Adventures and activities" />
+            <div class="story-body">
+              <h3 class="story-title">Adventures & Activities</h3>
+              <div class="story-meta">
+                <span>For the curious and bold.</span>
+                <span class="story-link">→</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="story-card">
+            <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1000&q=80" alt="Hidden gems" />
+            <div class="story-body">
+              <h3 class="story-title">Hidden Gems</h3>
+              <div class="story-meta">
+                <span>Off the beaten path.</span>
+                <span class="story-link">→</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured">
+      <div class="container">
+        <div class="featured-inner">
+          <div class="featured-copy">
+            <span class="small-label">Featured Story</span>
+            <h2>A Perfect Day in Watamu</h2>
+            <span class="rule"></span>
+            <p>
+              Wake up to ocean breeze, explore turquoise waters, savor fresh flavors
+              and end your day with a golden sunset.
+            </p>
+            <a href="#" class="read-more">
+              Read the story
+              <span class="arrow"></span>
+            </a>
+          </div>
+
+          <div class="featured-visual">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80" alt="Watamu beach" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <div class="container">
+        <div class="faq-mark">✦</div>
+        <h3>“The best journeys answer questions<br>you didn’t even know you had.”</h3>
+        <span class="rule"></span>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const bookingForm = document.querySelector('.search-box');
+      bookingForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const button = this.querySelector('.search-submit');
+        const originalText = button.textContent;
+        button.textContent = 'Searching...';
+        button.disabled = true;
+
+        setTimeout(function () {
+          button.textContent = originalText;
+          button.disabled = false;
+          alert('This is a demo search form. Connect it to your booking backend or property API to make it live.');
+        }, 800);
+      });
+    });
+  </script>
+</body>
+</html>
